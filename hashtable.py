@@ -31,7 +31,8 @@ class HashTable(object):
 
     def keys(self):
         """Return a list of all keys in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(n) because we have to go through all
+        the keys in the hashtable"""
         # Collect all keys in each of the buckets
         all_keys = []
         for bucket in self.buckets:
@@ -41,7 +42,8 @@ class HashTable(object):
 
     def values(self):
         """Return a list of all values in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(n) because we need to go through all
+        the values in the hashtable"""
         # Collect all values in each of the buckets
         all_values = []
         for bucket in self.buckets:
@@ -51,7 +53,8 @@ class HashTable(object):
 
     def items(self):
         """Return a list of all entries (key-value pairs) in this hash table.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(n) because we need to get all the
+        items in the hash table"""
         # Collect all pairs of key-value entries in each of the buckets
         all_items = []
         for bucket in self.buckets:
@@ -73,8 +76,10 @@ class HashTable(object):
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) if the key is the head of the linked list 
+        or if there isn't anything in the linked list
+        Worst case running time: O(n) if all the keys are in the same bucket and
+        the key we are looking for is the tail or isn't found"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -105,7 +110,8 @@ class HashTable(object):
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         Best case running time: O(1) if key is at the head of the linkedlist
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Worst case running time: O(2b) because resize would take the most time
+        and there are more buckets then items"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -148,8 +154,10 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: ??? under what conditions? [TODO]
-        Best and worst case space usage: ??? what uses this memory? [TODO]"""
+        Best and worst case running time: O(2b) because wqe double the number
+        of buckets
+        Best and worst case space usage: O(b+n) for the buckets and the items
+        that you then create"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
